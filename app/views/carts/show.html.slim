@@ -2,10 +2,14 @@ p#notice = notice
 
 h2 Your Pragmatic Cart
 
-ul 
-  - @cart.line_items.each do |item|
-    li = item.product.title
-
-=> link_to "Edit", edit_cart_path(@cart)
-'|
-=< link_to "Back", carts_path
+table 
+  - @cart.line_items.each do |line_item|
+      tr
+        td.quantity = line_item.quantity
+        td = line_item.product.title
+        td.price = number_to_currency(line_item.total_price)
+  tfood 
+      tr
+        th = 'Total: '
+        td.price = number_to_currency(@cart.total_price)  
+=> button_to 'Empty cart', @cart, method: :delete, data: {confirm: 'Are you sure?'}
